@@ -43,30 +43,7 @@ text-align: center;
 
 export default class Home extends React.Component {
     state = {
-        produtos: [{
-            id: Date.now(),
-            nome: "Camiseta estampa espacial - NASA Branca ",
-            valor: "R$ 55.00",
-            imagem: "https://i.pinimg.com/236x/3a/e3/f2/3ae3f21b4d72313d1db22cf82fd10b44.jpg"
-        },
-
-        {
-            id: Date.now(),
-            nome: "Camiseta estampa espacial - NASA Preta  ",
-            valor: "R$ 60.00",
-            imagem: "https://i.pinimg.com/236x/f6/33/48/f63348d9b483f867e457d9018af3bf29.jpg"
-
-        },
-
-        {
-            id: Date.now(),
-            nome: "Camiseta estampa espacial - NASA Cinza ",
-            valor: "R$ 50.00",
-            imagem: "https://i.pinimg.com/236x/d1/7d/0e/d17d0ebff04a1c400abde52742d625c8.jpg"
-        }
-
-        ],
-
+        
 
         ordenacao: ""
 
@@ -81,7 +58,7 @@ export default class Home extends React.Component {
 
     render() {
 
-        const produtosOrdenados = this.state.produtos.sort((a, b) => {
+        const produtosOrdenados = this.props.produtos.sort((a, b) => {
 
             if (this.state.ordenacao == 'decrescente') {
                 return a.valor > b.valor ? -1 : a.valor > b.valor ? 1 : 0;
@@ -93,7 +70,7 @@ export default class Home extends React.Component {
 
         return (
             <HomeContainer>
-                <textoContainer>Quantidade de Produtos: {this.state.produtos.length}</textoContainer>
+                <textoContainer>Quantidade de Produtos: {this.props.produtos.length}</textoContainer>
 
                 {produtosOrdenados.map(produto => {
                     return (
@@ -104,7 +81,7 @@ export default class Home extends React.Component {
                             <p></p>
                             <span>{produto.valor}</span>
                             <p></p>
-                            <button onClick={() => this.props.adicionaProduto(produto)} type="submit">Adicionar ao Carrinho</button>
+                            <button onClick={this.props.adicionaNoCarrinho} type="submit">Adicionar ao Carrinho</button>
                         </ProdutoHome>
 
                     )
