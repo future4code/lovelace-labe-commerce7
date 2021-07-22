@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Carrinho } from './Carrinho';
 
 const HomeContainer = styled.div`
 margin: 0px;
@@ -16,7 +17,9 @@ margin: 10px;
 
 // const textoContainer = styled.div`
 // display: flex;
-// text-align: left;
+// text-align: center;
+// align-self: flex-start;
+// align-content: baseline;
 // `
 
 
@@ -24,6 +27,8 @@ const ProdutoHome = styled.div`
 display: inline-block;
 border: solid 1px black;
 margin: 5px;
+/* margin-top: 100px; */
+text-align: center;
 padding: 15px;
 text-align: center;
 :hover {
@@ -32,8 +37,9 @@ text-align: center;
 }
 `
 
-const Button = styled.button`
-`
+// const Button = styled.button`
+// `
+
 
 export default class Home extends React.Component {
     state = {
@@ -98,7 +104,7 @@ export default class Home extends React.Component {
                             <p></p>
                             <span>{produto.valor}</span>
                             <p></p>
-                            <button type="submit">Adicionar ao Carrinho</button>
+                            <button onClick={() => this.props.adicionaProduto(produto)} type="submit">Adicionar ao Carrinho</button>
                         </ProdutoHome>
 
                     )
