@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Carrinho } from './Carrinho';
+import  Carrinho from './Carrinho';
+import Produtos from './Produtos';
 
 const HomeContainer = styled.div`
 margin: 0px;
@@ -36,9 +37,6 @@ text-align: center;
     background-color: darkgray;
 }
 `
-
-// const Button = styled.button`
-// `
 
 
 export default class Home extends React.Component {
