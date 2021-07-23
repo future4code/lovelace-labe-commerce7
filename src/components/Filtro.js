@@ -2,10 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 const FiltroContainer = styled.div`
-margin: 20px;
-padding: 20px;
-text-align: left; 
+margin: 0px;
+text-align: center; 
 border: 1px solid black;
+padding: 5px;
+display: inline-block;
+height: 100%;
+width: 100%;
 `
 
 

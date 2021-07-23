@@ -1,34 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
-import  Carrinho from './Carrinho';
+import Carrinho from './Carrinho';
 import Produtos from './Produtos';
 
 const HomeContainer = styled.div`
 margin: 0px;
 padding: 0px;
-text-align: left;
-display: flex;
-align-items: center;
+display: inline;
+height: 10%;
+width: 10%;
+
 `
 
 const InputsHome = styled.div`
-margin: 10px;
-
+display: inline-block;
 `
-
-// const textoContainer = styled.div`
-// display: flex;
-// text-align: center;
-// align-self: flex-start;
-// align-content: baseline;
-// `
 
 
 const ProdutoHome = styled.div`
 display: inline-block;
 border: solid 1px black;
-margin: 5px;
-/* margin-top: 100px; */
+margin: 0px;
 text-align: center;
 padding: 15px;
 text-align: center;
@@ -41,7 +33,7 @@ text-align: center;
 
 export default class Home extends React.Component {
     state = {
-        
+
 
         ordenacao: ""
 
@@ -79,7 +71,7 @@ export default class Home extends React.Component {
                             <p></p>
                             <span>{produto.valor}</span>
                             <p></p>
-                            <button onClick={this.props.adicionaNoCarrinho} type="submit">Adicionar ao Carrinho</button>
+                            <button onClick={() => this.props.adicionaNoCarrinho(produto)} >Adicionar ao Carrinho</button>
                         </ProdutoHome>
 
                     )
