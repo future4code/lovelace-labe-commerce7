@@ -14,38 +14,41 @@ text-align: end;
 `
 
 export default class Carrinho extends React.Component {
-    state = {
-        // novosProdutos =[],
 
+    
         // somaProdutos = ""
 
-    }
 
     adicionaProduto = (produto) => {
         console.log(produto)
-        /*const novosProdutos = {
-            id: Date.now(),
-            valor: "",
 
-        }
 
-        this.setState({
-            produtos: [... this.state.produtos, novosProdutos]
-        })*/
+        // this.setState({
+        //     produtos: [... this.state.produtos, novoProduto]
+        // })
+    }
 
+    adicionaValorCarrinho= () => {
+        this.setState({valorCarrinho: this.state.valorCarrinho + this.state.valorProduto})
+
+      }
+    removeValorCarrinho = () => {
+        this.setState({valorCarrinho: this.adicionaValorCarrinho - this.state.valorProduto })
     }
 
     render() {
+
         return (
             <CarrinhoContainer>
                 <textoContainer><h3>Carrinho:</h3></textoContainer>
                 <p></p>
-                <button type="submit">Remover</button>
+                <button type="submit"onClick={this.removeValorCarrinho}>Remover</button>
                 <p></p>
-                <button type="submit">Remover</button>
+                <button type="submit"onClick={this.removeValorCarrinho}>Remover</button>
                 <p></p>
-                <button type="submit">Remover</button>
+                <button type="submit" onClick={this.removeValorCarrinho}>Remover</button>
             </CarrinhoContainer>
         )
-    }
+    };
+    
 }
