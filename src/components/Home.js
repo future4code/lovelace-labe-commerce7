@@ -58,24 +58,42 @@ export default class Home extends React.Component {
 
         })
 
+        const produtos = produtosOrdenados
+            .filter(produto => {
+                if(!this.props.valorMinimo || (produto.valor >= this.props.valorMinimo)) {
+                    return true
+                } else { return false }
+            })
+            .filter(produto => {
+                if(!this.props.valorMaximo || (produto.valor <= this.props.valorMaximo)) {
+                    return true
+                } else { return false }
+            })
+            .filter(produto => {
+                if(!this.props.nome || (produto.nome.toLowerCase().includes(this.props.nome.toLowerCase()))) {
+                    return true
+                } else { return false }
+            })
+
+        const produtosFiltrados = produtos.map(produto => {
+            return (
+                <ProdutoHome>
+                    <img src={produto.imagem}></img>
+                    <p></p>
+                    <span><b>{produto.nome}</b></span>
+                    <p></p>
+                    <span>R$ {produto.valor}</span>
+                    <p></p>
+                    <button onClick={() => this.props.adicionaNoCarrinho(produto)} >Adicionar ao Carrinho</button>
+                </ProdutoHome>
+            )
+        })
+
         return (
             <HomeContainer>
                 <textoContainer>Quantidade de Produtos: {this.props.produtos.length}</textoContainer>
 
-                {produtosOrdenados.map(produto => {
-                    return (
-                        <ProdutoHome>
-                            <img src={produto.imagem}></img>
-                            <p></p>
-                            <span><b>{produto.nome}</b></span>
-                            <p></p>
-                            <span>{produto.valor}</span>
-                            <p></p>
-                            <button onClick={() => this.props.adicionaNoCarrinho(produto)} >Adicionar ao Carrinho</button>
-                        </ProdutoHome>
-
-                    )
-                })}
+                    {produtosFiltrados}
 
                 <InputsHome>
                     <label>Ordenação: </label>

@@ -3,6 +3,7 @@ import React from 'react';
 import Home from './components/Home';
 import Carrinho from './components/Carrinho';
 import Filtro from './components/Filtro';
+import { parse, stringify } from 'flatted';
 
 
 const MainContainer = styled.div`
@@ -41,14 +42,91 @@ class App extends React.Component {
 
     ],
 
+    valorMinimo: "",
+    valorMaximo: "",
+    nome: "",
+    valorTotalCarrinho: 0
+
   }
 
+  /*componentDidMount() {
+    localStorage.getItem('carrinho') && this.setState({
+      carrinho: parse(localStorage.getItem('carrinho'))
+    })
+  }*/
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.carrinho !== this.state.carrinho) {
+      this.atualizaValorTotalCarrinho()
+      //localStorage.setItem('carrinho', stringify(this.state.carrinho))
+    }
+  }
+
+  onChangeValorMinimo = (event) => {
+    this.setState({ valorMinimo: event.target.value })
+  }
+
+  onChangeValorMaximo = (event) => {
+    this.setState({ valorMaximo: event.target.value })
+  }
+
+  onChangeNome = (event) => {
+    this.setState({ nome: event.target.value })
+  }
 
   adicionaNoCarrinho = (produto) => {
-    const carrinhoAtualizado = [...this.state.carrinho, produto]
-    this.setState({carrinho: carrinhoAtualizado})
+    let contador = 0
+
+    const carrinhoParaAtualizar = [...this.state.carrinho]
+    console.log(produto)
+    carrinhoParaAtualizar.map(produtoNoCarrinho => {
+      if (produtoNoCarrinho.id == produto.id) {
+        contador++
+        produtoNoCarrinho.valorItem = produto.valor
+        produtoNoCarrinho.valorTotal = produtoNoCarrinho.valorTotal + produto.valor
+        produtoNoCarrinho.quantidade++
+        return produtoNoCarrinho
+      }
+    })
+
+    if (contador == 0) {
+      const produtoParaAdicionar = {
+        "id": produto.id,
+        "nome": produto.nome,
+        "valorItem": produto.valor,
+        "valorTotal": produto.valor,
+        "quantidade": 1
+      }
+      this.setState({ carrinho: [...this.state.carrinho, produtoParaAdicionar] })
+    } else {
+      this.setState({ carrinho: carrinhoParaAtualizar })
+    }
+
   }
 
+  removerDoCarrinho = (id) => {
+    const carrinhoParaAtualizar = [...this.state.carrinho]
+    for (let i = 0; i < carrinhoParaAtualizar.length; i++) {
+      if(id == carrinhoParaAtualizar[i].id) {
+        if(carrinhoParaAtualizar[i].quantidade > 1) {
+          carrinhoParaAtualizar[i].quantidade--
+          carrinhoParaAtualizar[i].valorTotal = carrinhoParaAtualizar[i].valorTotal - carrinhoParaAtualizar[i].valorItem
+        } else {
+          carrinhoParaAtualizar.splice(i, 1)  
+        }
+      }
+    }
+    this.setState({carrinho: carrinhoParaAtualizar})
+  }
+
+  atualizaValorTotalCarrinho = () => {
+    let somaValor = 0
+    this.state.carrinho.map(produto => {
+      somaValor = somaValor + produto.valorTotal
+    })
+
+    this.setState({valorTotalCarrinho: somaValor}) 
+  }
 
   render() {
 
@@ -56,11 +134,23 @@ class App extends React.Component {
 
       <MainContainer>
 
-        <Filtro></Filtro>
-        <Carrinho carrinho={this.state.carrinho}></Carrinho>
-        <Home adicionaNoCarrinho={this.adicionaNoCarrinho} produtos={this.state.produtos}></Home>
-        
-        
+        <Filtro
+          onChangeValorMinimo={this.onChangeValorMinimo}
+          onChangeValorMaximo={this.onChangeValorMaximo}
+          onChangeNome={this.onChangeNome}>
+        </Filtro>
+        <Carrinho
+           carrinho={this.state.carrinho}
+           valorTotalCarrinho={this.state.valorTotalCarrinho}
+           removerDoCarrinho={this.removerDoCarrinho}>
+        </Carrinho>
+        <Home
+          valorMinimo={this.state.valorMinimo}
+          valorMaximo={this.state.valorMaximo}
+          nome={this.state.nome}
+          adicionaNoCarrinho={this.adicionaNoCarrinho}
+          produtos={this.state.produtos}>
+        </Home>
 
       </MainContainer>
 
