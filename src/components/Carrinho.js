@@ -3,38 +3,20 @@ import styled from 'styled-components';
 import Home from './Home';
 
 const CarrinhoContainer = styled.div`
-/* display: flex;
-margin-top: 100px; */
-padding: 50px;
-height: 350px;
-width: 200px;
+margin: 0px;
+text-align: inherit; 
+padding: 5px;
+display: inline-block;
+height: 100%;
+width: 100%;
 border: solid black 1px;
-text-align: end;
+text-align: center;
 /* align-items: flex-end; */
 `
 
+const ProdutoCarrinho = styled.div
+
 export default class Carrinho extends React.Component {
-
-    
-        // somaProdutos = ""
-
-
-    adicionaProduto = (produto) => {
-        console.log(produto)
-
-
-        // this.setState({
-        //     produtos: [... this.state.produtos, novoProduto]
-        // })
-    }
-
-    adicionaValorCarrinho= () => {
-        this.setState({valorCarrinho: this.state.valorCarrinho + this.state.valorProduto})
-
-      }
-    removeValorCarrinho = () => {
-        this.setState({valorCarrinho: this.adicionaValorCarrinho - this.state.valorProduto })
-    }
 
     render() {
 
@@ -42,13 +24,20 @@ export default class Carrinho extends React.Component {
             <CarrinhoContainer>
                 <textoContainer><h3>Carrinho:</h3></textoContainer>
                 <p></p>
-                <button type="submit"onClick={this.removeValorCarrinho}>Remover</button>
-                <p></p>
-                <button type="submit"onClick={this.removeValorCarrinho}>Remover</button>
-                <p></p>
-                <button type="submit" onClick={this.removeValorCarrinho}>Remover</button>
+                {
+                    this.props.carrinho.map(produto => {
+                        console.log(produto)
+                        return (
+                            <div>
+                                <span>{produto.quantidade}x </span><span>{produto.nome}</span>
+                                <button onClick={() => this.props.removerDoCarrinho(produto.id)} >Remover do Carrinho</button>
+                            </div>
+                        )
+                    })
+                }
+                <div><span>Valor total: R$ {this.props.valorTotalCarrinho}</span></div>
             </CarrinhoContainer>
         )
     };
-    
+
 }

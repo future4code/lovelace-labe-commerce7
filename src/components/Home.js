@@ -1,33 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Carrinho } from './Carrinho';
+import Carrinho from './Carrinho';
+import Produtos from './Produtos';
 
 const HomeContainer = styled.div`
 margin: 0px;
 padding: 0px;
-text-align: left;
-display: flex;
-align-items: center;
+display: inline;
+height: 10%;
+width: 10%;
+
 `
 
 const InputsHome = styled.div`
-margin: 10px;
-
+display: inline-block;
 `
-
-// const textoContainer = styled.div`
-// display: flex;
-// text-align: center;
-// align-self: flex-start;
-// align-content: baseline;
-// `
 
 
 const ProdutoHome = styled.div`
 display: inline-block;
 border: solid 1px black;
-margin: 5px;
-/* margin-top: 100px; */
+margin: 0px;
 text-align: center;
 padding: 15px;
 text-align: center;
@@ -37,13 +30,10 @@ text-align: center;
 }
 `
 
-// const Button = styled.button`
-// `
-
 
 export default class Home extends React.Component {
     state = {
-        
+
 
         ordenacao: ""
 
@@ -68,24 +58,42 @@ export default class Home extends React.Component {
 
         })
 
+        const produtos = produtosOrdenados
+            .filter(produto => {
+                if(!this.props.valorMinimo || (produto.valor >= this.props.valorMinimo)) {
+                    return true
+                } else { return false }
+            })
+            .filter(produto => {
+                if(!this.props.valorMaximo || (produto.valor <= this.props.valorMaximo)) {
+                    return true
+                } else { return false }
+            })
+            .filter(produto => {
+                if(!this.props.nome || (produto.nome.toLowerCase().includes(this.props.nome.toLowerCase()))) {
+                    return true
+                } else { return false }
+            })
+
+        const produtosFiltrados = produtos.map(produto => {
+            return (
+                <ProdutoHome>
+                    <img src={produto.imagem}></img>
+                    <p></p>
+                    <span><b>{produto.nome}</b></span>
+                    <p></p>
+                    <span>R$ {produto.valor}</span>
+                    <p></p>
+                    <button onClick={() => this.props.adicionaNoCarrinho(produto)} >Adicionar ao Carrinho</button>
+                </ProdutoHome>
+            )
+        })
+
         return (
             <HomeContainer>
                 <textoContainer>Quantidade de Produtos: {this.props.produtos.length}</textoContainer>
 
-                {produtosOrdenados.map(produto => {
-                    return (
-                        <ProdutoHome>
-                            <img src={produto.imagem}></img>
-                            <p></p>
-                            <span><b>{produto.nome}</b></span>
-                            <p></p>
-                            <span>{produto.valor}</span>
-                            <p></p>
-                            <button onClick={this.props.adicionaNoCarrinho} type="submit">Adicionar ao Carrinho</button>
-                        </ProdutoHome>
-
-                    )
-                })}
+                    {produtosFiltrados}
 
                 <InputsHome>
                     <label>Ordenação: </label>
