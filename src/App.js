@@ -49,16 +49,9 @@ class App extends React.Component {
 
   }
 
-  /*componentDidMount() {
-    localStorage.getItem('carrinho') && this.setState({
-      carrinho: parse(localStorage.getItem('carrinho'))
-    })
-  }*/
-
   componentDidUpdate(prevProps, prevState) {
     if (prevState.carrinho !== this.state.carrinho) {
       this.atualizaValorTotalCarrinho()
-      //localStorage.setItem('carrinho', stringify(this.state.carrinho))
     }
   }
 
@@ -107,16 +100,16 @@ class App extends React.Component {
   removerDoCarrinho = (id) => {
     const carrinhoParaAtualizar = [...this.state.carrinho]
     for (let i = 0; i < carrinhoParaAtualizar.length; i++) {
-      if(id == carrinhoParaAtualizar[i].id) {
-        if(carrinhoParaAtualizar[i].quantidade > 1) {
+      if (id == carrinhoParaAtualizar[i].id) {
+        if (carrinhoParaAtualizar[i].quantidade > 1) {
           carrinhoParaAtualizar[i].quantidade--
           carrinhoParaAtualizar[i].valorTotal = carrinhoParaAtualizar[i].valorTotal - carrinhoParaAtualizar[i].valorItem
         } else {
-          carrinhoParaAtualizar.splice(i, 1)  
+          carrinhoParaAtualizar.splice(i, 1)
         }
       }
     }
-    this.setState({carrinho: carrinhoParaAtualizar})
+    this.setState({ carrinho: carrinhoParaAtualizar })
   }
 
   atualizaValorTotalCarrinho = () => {
@@ -125,7 +118,7 @@ class App extends React.Component {
       somaValor = somaValor + produto.valorTotal
     })
 
-    this.setState({valorTotalCarrinho: somaValor}) 
+    this.setState({ valorTotalCarrinho: somaValor })
   }
 
   render() {
@@ -140,9 +133,9 @@ class App extends React.Component {
           onChangeNome={this.onChangeNome}>
         </Filtro>
         <Carrinho
-           carrinho={this.state.carrinho}
-           valorTotalCarrinho={this.state.valorTotalCarrinho}
-           removerDoCarrinho={this.removerDoCarrinho}>
+          carrinho={this.state.carrinho}
+          valorTotalCarrinho={this.state.valorTotalCarrinho}
+          removerDoCarrinho={this.removerDoCarrinho}>
         </Carrinho>
         <Home
           valorMinimo={this.state.valorMinimo}
