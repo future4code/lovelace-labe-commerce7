@@ -1,33 +1,52 @@
 import React from 'react';
 import styled from 'styled-components';
-import Carrinho from './Carrinho';
-import Produtos from './Produtos';
 
 const HomeContainer = styled.div`
 margin: 0px;
-padding: 0px;
+padding: 100px;
 display: inline;
 height: 10%;
 width: 10%;
+button { height: 30px;
+        :hover {
+            cursor: pointer;
+            background-color: darkgray;
+            border-radius: 20px;
+        };
+}
+img {
+  display: inline;
+  justify-content: center;
+  padding-top: 0px;
+  margin-top: 0px;
+  margin: 0px;
+  border-radius: 20px;
+}
+h4 {
+    text-align: center;
+}
+span {
+    display: block;
+    text-align: center;
+}
 
 `
 
 const InputsHome = styled.div`
 display: inline-block;
+label {
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
 `
-
 
 const ProdutoHome = styled.div`
 display: inline-block;
-border: solid 1px black;
-margin: 0px;
+margin: 10px;
 text-align: center;
-padding: 15px;
-text-align: center;
-:hover {
-    cursor: pointer;
-    background-color: darkgray;
-}
+padding: 0px 2px 0px 2px;
+
 `
 
 
@@ -91,10 +110,6 @@ export default class Home extends React.Component {
 
         return (
             <HomeContainer>
-                <textoContainer>Quantidade de Produtos: {this.props.produtos.length}</textoContainer>
-
-                {produtosFiltrados}
-
                 <InputsHome>
                     <label>Ordenação: </label>
                     <select value={this.state.ordenacao} onChange={this.onChangeOrdenacao}>
@@ -103,6 +118,10 @@ export default class Home extends React.Component {
                         <option value="decrescente">Decrescente</option>
                     </select>
                 </InputsHome>
+                <textoContainer><h4>Quantidade de Produtos: {this.props.produtos.length}</h4></textoContainer>
+
+                {produtosFiltrados}
+
 
             </HomeContainer>
         )
