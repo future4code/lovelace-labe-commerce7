@@ -3,13 +3,12 @@ import React from 'react';
 import Home from './components/Home';
 import Carrinho from './components/Carrinho';
 import Filtro from './components/Filtro';
-import { parse, stringify } from 'flatted';
-
 
 const MainContainer = styled.div`
 margin: 0px;
 padding: 0px;
 display: inline-block;
+
 `
 
 

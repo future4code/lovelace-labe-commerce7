@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Home from './Home';
 
 const CarrinhoContainer = styled.div`
 margin: 0px;
@@ -9,11 +8,22 @@ padding: 5px;
 display: inline-block;
 height: 100%;
 width: 100%;
-border: solid black 1px;
+
 text-align: center;
+button {height: 30px;
+        :hover {
+            cursor: pointer;
+            background-color: darkgray;
+            border-radius: 20px;
+        };
+};
+span { display: inline;
+    padding: 10px;
+    text-align: center;
+
+}
 `
 
-const ProdutoCarrinho = styled.div
 
 export default class Carrinho extends React.Component {
 
@@ -32,7 +42,7 @@ export default class Carrinho extends React.Component {
                     )
                 })
                 }
-                <div><span>Valor total: R$ {this.props.valorTotalCarrinho}</span></div>
+                <div><span>Valor Total: R$ {this.props.valorTotalCarrinho}</span></div>
             </CarrinhoContainer>
         )
     };
