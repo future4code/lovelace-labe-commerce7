@@ -60,17 +60,17 @@ export default class Home extends React.Component {
 
         const produtos = produtosOrdenados
             .filter(produto => {
-                if(!this.props.valorMinimo || (produto.valor >= this.props.valorMinimo)) {
+                if (!this.props.valorMinimo || (produto.valor >= this.props.valorMinimo)) {
                     return true
                 } else { return false }
             })
             .filter(produto => {
-                if(!this.props.valorMaximo || (produto.valor <= this.props.valorMaximo)) {
+                if (!this.props.valorMaximo || (produto.valor <= this.props.valorMaximo)) {
                     return true
                 } else { return false }
             })
             .filter(produto => {
-                if(!this.props.nome || (produto.nome.toLowerCase().includes(this.props.nome.toLowerCase()))) {
+                if (!this.props.nome || (produto.nome.toLowerCase().includes(this.props.nome.toLowerCase()))) {
                     return true
                 } else { return false }
             })
@@ -93,7 +93,7 @@ export default class Home extends React.Component {
             <HomeContainer>
                 <textoContainer>Quantidade de Produtos: {this.props.produtos.length}</textoContainer>
 
-                    {produtosFiltrados}
+                {produtosFiltrados}
 
                 <InputsHome>
                     <label>Ordenação: </label>
